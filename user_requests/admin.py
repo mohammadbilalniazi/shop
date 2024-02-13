@@ -27,12 +27,12 @@ def get_model_fields(model):
     field_list=[field.name for field in model._meta.get_fields()]
     return field_list
 
-@admin.register(Services)
+# @admin.register(Services)
 class ServicesAdmin(admin.ModelAdmin):
     list_display =("service","request")
     #list_display=get_model_fields(Services)  
     ("REJECTED","REJECTED"),("ACCEPTED","ACCEPTED"),("PENDING","PENDING")
-@admin.register(Request)
+# @admin.register(Request)
 class RequestAdmin(admin.ModelAdmin):
     #list_display=get_model_fields(Request)
     list_display =("get_requester_name","requester_email","requester_contact","get_requests","status")

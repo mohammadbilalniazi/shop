@@ -3,33 +3,33 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.urls import reverse
 from django.template import loader 
 from django.contrib.auth.decorators import login_required
-from shopapp.models import Customer, Supplier , Supplier_Ledger , Customer_Ledger , Log ,Purchase_bill, Purchase_detail,Sale_bill,Sales_detail,Roznamcha,Asset
+from shopapp.models import Customer, Supplier , Supplier_Ledger , Customer_Ledger , Log ,Bill, Bill_detail,Sale_bill,Sales_detail,Roznamcha,Asset
 from products.models import Product
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib import messages
 
 @login_required(login_url='/admin')
-def purchase_show(request,purchase_bill_id=None):
+def purchase_show(request,bill_id=None):
     context={}
-    if purchase_bill_id==None:
-        context['purchase_bills']=Purchase_bill.objects.all()
+    if bill_id==None:
+        context['bills']=Bill.objects.all()
         template=loader.get_template('purchase_show.html')
     else:
-        #Purchase_bill.objects.get(id=int(purchase_bill_id))
-        print(Purchase_bill.objects.get(id=int(purchase_bill_id)))
-        #return HttpResponse(Purchase_bill.objects.get(id=int(purchase_bill_id)))
+        #bill.objects.get(id=int(bill_id))
+        print(Bill.objects.get(id=int(bill_id)))
+        #return HttpResponse(bill.objects.get(id=int(bill_id)))
         context['detail']=True
-        purchase_bill_obj=Purchase_bill.objects.get(id=int(purchase_bill_id))
-        print("purchase_bill_obj.payment=",purchase_bill_obj.payment)
-        context['purchase_bill']=purchase_bill_obj
+        bill_obj=Bill.objects.get(id=int(bill_id))
+        print("bill_obj.payment=",bill_obj.payment)
+        context['bill']=bill_obj
         template=loader.get_template('purchase_temp.html')
     
     
     return HttpResponse(template.render(context,request))
 
 @login_required(login_url='/admin')
-def purchase_bill_form(request):  
+def Bill_form(request):  
     #print("dkdk",request.POST)
     print(request.POST)
     print("request.method 2",request.method)
@@ -40,19 +40,19 @@ def purchase_bill_form(request):
     context={}    
     if request.method == "POST":
         #print(request.GET)
-        ########################################## purchase_bill input taking############################
-        purchase_bill=request.POST.get("bill_no",None)
+        ########################################## bill input taking############################
+        bill=request.POST.get("bill_no",None)
         ##date conversion##
-        purchasing_date=request.POST.get("bill_date",None)
-        purchasing_date=datetime.strptime(purchasing_date,"%Y-%m-%d")
+        date=request.POST.get("bill_date",None)
+        date=datetime.strptime(date,"%Y-%m-%d")
         ###################
-        seller=request.POST.get("company",None)
-        purchaser=request.POST.get("purchaser",None)
-        purchaser=request.user
-        total_purchase_bill=request.POST.get("total_bill_amount",None)
+        vendor=request.POST.get("company",None)
+        creator=request.POST.get("creator",None)
+        creator=request.user
+        total=request.POST.get("total",None)
         payment=request.POST.get("total_paymen5",None)
-        purchase_bill_obj=Purchase_bill(purchasing_date=purchasing_date,seller=seller,purchaser=purchaser,total_purchase_bill=total_purchase_bill,payment=payment)
-        purchase_bill_obj.save()
+        bill_obj=Bill(date=date,vendor=vendor,creator=creator,total=total,payment=payment)
+        bill_obj.save()
         ######################################################bill detail############################
 
         product=request.POST.getlist('item_name',None)        #in models it's name is product
@@ -70,7 +70,7 @@ def purchase_bill_form(request):
             print(product[i]," ",item_amount[i])
             #return HttpResponse(Product.objects.get(item_name=product[i]))
             product_obj=Product.objects.get(item_name=product[i])
-            purchase_detail_obj=Purchase_detail(purchase_bill=purchase_bill_obj,product=product_obj,item_amount=item_amount[i],item_price=item_price[i],return_qty=return_qty[i])
+            purchase_detail_obj=Bill_detail(bill=bill_obj,product=product_obj,item_amount=item_amount[i],item_price=item_price[i],return_qty=return_qty[i])
             purchase_detail_obj.save()
         #template=loader.get_template('purchase_temp.html')
         #return HttpResponse(request.POST)

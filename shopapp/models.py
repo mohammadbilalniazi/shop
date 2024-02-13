@@ -83,14 +83,14 @@ class Log(models.Model):
 class Sale_bill(models.Model):        #sale_bill = sale_detail
     payment=models.IntegerField()
     sale_date=models.DateField()
-    seller=models.ForeignKey(User,on_delete=models.DO_NOTHING,max_length=30)
+    vendor=models.ForeignKey(User,on_delete=models.DO_NOTHING,max_length=30)
     customer = models.ForeignKey(Customer,on_delete=models.DO_NOTHING,to_field='name',null=True, blank=True)
     total_sale_bill=models.IntegerField()
     discount=models.IntegerField(default=0)  
     def __str__(self):
-        return f"{self.seller}"
+        return f"{self.vendor}"
     
-    verbose_name_plural = " Sale Bill"
+    verbose_name_plural = " Sale bill"
 
 
 class Sales_detail(models.Model):

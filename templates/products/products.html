@@ -1,0 +1,453 @@
+<html lang="en-us" dir="ltr">
+<head>
+    <title>Select product to change | Django site admin</title>
+    <link rel="stylesheet" href="/static/admin/css/base.css">
+
+    <link rel="stylesheet" href="/static/admin/css/dark_mode.css">
+     <!-- <link rel="stylesheet" type="text/css" href="/static/assets/css/bootstrap.min.css">  -->
+    
+
+    <link rel="stylesheet" href="/static/admin/css/nav_sidebar.css">
+    <script src="/static/admin/js/nav_sidebar.js" defer=""></script>
+
+  <!-- <script src="/static/assets/js/bootstrap.bundle.min.js" defer=""></script> -->
+
+    
+    <link rel="stylesheet" href="/static/admin/css/changelists.css">
+
+  <script src="/static/assets/js/axios.min.js"></script>
+  <script src="/static/assets/js/cookie.js"></script>
+    <script src="/static/admin/js/vendor/jquery/jquery.js"></script>
+    <script src="/static/admin/js/jquery.init.js"></script>
+    <script src="/static/admin/js/core.js"></script>
+    <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <script src="/static/admin/js/actions.js"></script>
+    
+    <script src="/static/admin/js/urlify.js"></script>
+    <script src="/static/admin/js/prepopulate.js"></script>
+    <script src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
+    <script src="/static/admin/js/filters.js" defer=""></script>
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="/static/admin/css/responsive.css">
+    <meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+<body class=" app-products model-product change-list" data-admin-utc-offset="16200">
+<!-- Container -->
+<div id="container">
+    
+    <!-- Header -->
+    
+    <div id="header">
+        <div id="branding">
+            <h1 id="site-name"><a href="/admin/"></a><a href="/admin"><h1 style="color:rgb(255, 174, 0); font-weight:bold; text-align:center; font-size:40px">Shirkat</h1></a></h1>
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Welcome,
+                <strong>{{user}}</strong>
+                <a href="/">View site</a> /
+                <a href="/admin/password_change/">Change password</a> /
+                <form id="logout-form" method="post" action="/admin/logout/">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="K87MXyBkDQAkebZhWettqBOtL0EA61QLMrbXY2aYB1jByzd3qeni2fSbpjzxx0i0">
+                    <button type="submit">Log out</button>
+                </form>
+        </div>
+    </div>
+    
+    <!-- END Header -->
+        
+    <div class="breadcrumbs">
+    <a href="/admin/">Home</a>
+    › <a href="/admin/products/">Products</a>
+    › Products
+    </div>
+
+    
+
+    <div class="main shifted" id="main">  
+        <button class="sticky toggle-nav-sidebar" id="toggle-nav-sidebar" aria-label="Toggle navigation"></button>
+        <nav class="sticky" id="nav-sidebar">
+        <input type="search" id="nav-filter" placeholder="Start typing to filter…" aria-label="Filter navigation items">
+
+  
+    <div class="app-purchase module">
+      <table>
+        <caption>
+          <a href="/admin/purchase/" class="section" title="Models in the Bills application">Bills</a>
+        </caption>
+        
+          <tr class="model-bill">
+              <th scope="row"><a href="/admin/purchase/bill/">Bills</a></th>
+              <td><a href="/admin/purchase/bill/add/" class="addlink">Add</a></td>
+          </tr>
+        
+      </tbody></table>
+    </div>
+  
+  
+    <div class="app-configuration module">
+      <table>
+        <caption>
+          <a href="/admin/configuration/" class="section" title="Models in the Configuration application">Configuration</a>
+        </caption> 
+          <tbody><tr class="model-country">
+              <th scope="row"><a href="/admin/configuration/country/">Countries</a></th>
+              <td><a href="/admin/configuration/country/add/" class="addlink">Add</a></td>
+          </tr>
+                  
+          <tr class="model-languages">
+            
+              <th scope="row"><a href="/admin/configuration/languages/">Languages</a></th>
+            
+
+            
+              <td><a href="/admin/configuration/languages/add/" class="addlink">Add</a></td>
+            
+
+            
+          </tr>
+        
+          <tr class="model-location">
+            
+              <th scope="row"><a href="/admin/configuration/location/">Locations</a></th>
+            
+
+            
+              <td><a href="/admin/configuration/location/add/" class="addlink">Add</a></td>
+            
+
+            
+          </tr>
+        
+        
+          <tr class="model-organization">
+            
+              <th scope="row"><a href="/admin/configuration/organization/">Organizations</a></th>
+            
+
+            
+              <td><a href="/admin/configuration/organization/add/" class="addlink">Add</a></td>
+            
+
+            
+          </tr>
+        
+      </tbody></table>
+    </div>
+  
+    <div class="app-products module current-app">
+      <table>
+        <caption>
+          <a href="/admin/products/" class="section" title="Models in the Products application">Products</a>
+        </caption>
+        
+          <tbody><tr class="model-category">
+            
+              <th scope="row"><a href="/admin/products/category/">Categorys</a></th>
+            
+
+            
+              <td><a href="/admin/products/category/add/" class="addlink">Add</a></td>
+            
+
+            
+          </tr>
+        
+          <tr class="model-product current-model">
+            
+              <th scope="row"><a href="/admin/products/product/" aria-current="page">Products</a></th>
+            
+
+            
+              <td><a href="/admin/products/product/add/" class="addlink">Add</a></td>
+            
+
+            
+          </tr>
+        
+         
+        
+          <tr class="model-store">
+            
+              <th scope="row"><a href="/admin/products/store/">Stores</a></th>
+            
+
+            
+              <td><a href="/admin/products/store/add/" class="addlink">Add</a></td>
+            
+
+            
+          </tr>
+        
+          
+        
+          <tr class="model-unit">
+            
+              <th scope="row"><a href="/admin/products/unit/">Units</a></th>
+            
+
+            
+              <td><a href="/admin/products/unit/add/" class="addlink">Add</a></td>
+            
+
+            
+          </tr>
+        
+          
+        
+      </tbody></table>
+    </div>
+  
+    <div class="app-shopapp module">
+      <table>
+        <caption>
+          <a href="/admin/shopapp/" class="section" title="Models in the Shopapp application">Shopapp</a>
+        </caption>
+        
+          <tbody><tr class="model-asset">
+            
+              <th scope="row"><a href="/admin/shopapp/asset/">Asset</a></th>
+            
+
+            
+              <td><a href="/admin/shopapp/asset/add/" class="addlink">Add</a></td>
+            
+
+            
+          </tr>
+        
+         
+        
+      </tbody></table>
+    </div>
+  
+    
+</nav>
+
+        
+      
+      <div class="content">
+        
+          
+        
+        <!-- Content -->
+        <div id="content" class="" style="background-color: #f9f1c7;">
+          
+          <h1>Select product to change</h1>
+          
+          
+  <div id="content-main">
+    
+        <ul class="object-tools">
+          
+            
+
+
+  
+  <li>
+    
+    <a href="/admin/products/product/add/" class="addlink">
+      Add product
+    </a>
+  </li>
+  
+
+
+          
+        </ul>
+    
+    
+    <div class="module filtered" id="changelist">
+      <div class="changelist-form-container">
+        
+
+
+        
+
+        <form id="changelist-form" method="post" novalidate=""><input type="hidden" name="csrfmiddlewaretoken" value="K87MXyBkDQAkebZhWettqBOtL0EA61QLMrbXY2aYB1jByzd3qeni2fSbpjzxx0i0">
+        
+
+        
+          
+          
+
+
+<div class="results">
+<table id="result_list">
+<thead>
+<tr>
+
+<th scope="col" class="sortable column-organization">
+   <div class="text"><a href="?o=0">Organization</a></div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-item_name">
+   
+     
+   
+   <div class="text"><a href="?o=1">Item name</a></div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-get_detail">
+   
+   <div class="text"><span>Get detail</span></div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-category">
+   
+     
+   
+   <div class="text"><a href="?o=3">Category</a></div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-get_minimum_requirement">
+   
+   <div class="text"><span> minimum requirement</span></div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-get_item_amount_available">
+   
+   <div class="text"><span> current item amount available</span></div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-get_row">
+   
+   <div class="text"><span>Row</span></div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-get_column">
+   
+   <div class="text"><span>Column</span></div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-get_purchased_price">
+   
+   <div class="text"><span> purchased price</span></div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-get_selling_price">
+   
+   <div class="text"><span> selling price</span></div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-image_tag">
+   
+   <div class="text"><span>Image</span></div>
+   <div class="clear"></div>
+</th>
+</tr>
+</thead>
+<tbody>
+
+
+
+
+
+
+
+
+
+
+{% for product in products %}
+<tr> 
+    <th class="field-organization nowrap">
+     {{product.organization}}
+    </th>
+    <td class="field-item_name">{{product.item_name}}</td>
+    <td class="field-get_detail">{{product.product_detail.descrip}}</td>
+    <td class="field-category nowrap">{{product.category}}</td>
+    <td class="field-get_minimum_requirement">{{product.product_detail.minimum_requirement}}</td>
+    <td class="field-get_item_amount_available">{{product.product_detail.current_amount}}</td>
+    <td class="field-get_row">{{product.row_column_address.row}}</td>
+    <td class="field-get_column">{{product.row_column_address.column}}</td>   
+    <td class="field-get_purchased_price">{{product.product_price.purchased_price}}</td>
+    <td class="field-get_selling_price">{{product.product_price.selling_price}}</td>
+    <td class="field-image_tag">
+    </td>
+    <td>
+        <button  class="btn btn-success">
+        <a  href="/products/product/add/{{product.id}}">Update<i class="fa fa-update"></i></a>
+        </button>
+    </td>
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+</div>
+
+
+          
+        
+        
+
+<p class="paginator">
+
+{{products_length}} products
+
+
+</p>
+
+        </form>
+      </div>
+      
+  <!--       
+          <div id="changelist-filter">
+            <h2>Filter</h2>
+            
+            
+<details data-filter-title="item name" open="">
+  <summary>
+     By item name 
+  </summary>
+  <ul>
+  
+    <li class="selected">
+    <a href="?">All</a></li>
+  
+    <li>
+    <a href="?item_name=S3Zia">S3Zia</a></li>
+  
+    <li>
+    <a href="?item_name=s20">s20</a></li>
+  
+    <li>
+    <a href="?item_name=ss3">ss3</a></li>
+  
+    <li>
+    <a href="?item_name=ss4">ss4</a></li>
+  
+  </ul>
+</details> 
+ </div>
+-->
+
+         
+        
+      
+    </div>
+  </div>
+
+          
+          <br class="clear">
+        </div>
+        <!-- END Content -->
+        <div id="footer"></div>
+      </div>
+    </div>
+</div>
+<!-- END Container -->
+
+
+</body></html>
+
+
+<script src="/static/assets/js/common_entities/call_shirkat.js"></script>
+
+<script>
+    let response=call_shirkat('/products/'+'all'+'/','GET');
+    console.log("response ",response);
+</script>

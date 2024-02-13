@@ -15,7 +15,10 @@ import django_heroku
 import dj_database_url
 from decouple import config
 import os
-
+# from django.conf import settings
+from django.conf.urls import static
+from django.urls import path
+# from django.contrib import admin
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,8 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY WARNING: keep the sfecret key used in production secret!
 SECRET_KEY = 'django-insecure-$(o_^k29jw!#(g&if@=q$*zxpn(zqau986k86dq$(fi161t(*p'
+
+
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+print("MEDIA_ROOT ",MEDIA_ROOT)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -57,10 +65,40 @@ INSTALLED_APPS = [
     'chat',
     'purchase',
     'user',
+    'systemadmin',
     'configuration',
     'rest_framework',
      'corsheaders',
+     'jalali_date',
 ]
+
+
+# default settings
+JALALI_DATE_DEFAULTS = {
+   'Strftime': {
+        'date': '%y-%m-%d',
+        'datetime': '%H:%M:%S _ %y-%m-%d',
+    },
+    'Static': {
+        'js': [
+            # loading datepicker
+            'admin/js/django_jalali.min.js',
+            # OR
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.core.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/calendar.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.datepicker-cc.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.datepicker-cc-fa.js',
+            # 'admin/js/main.js',
+        ],
+        'css': {
+            'all': [
+                'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css',
+            ]
+        }
+    },
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -124,27 +162,37 @@ CORS_ALLOWED_ORIGINS = [
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'shirkat_new.sqlite3',
+        #'NAME':'shop',
+        #'HOST':'127.0.0.1',
+        #'USER':'admin',
+        #'PASSWORD':'Allahisone',
+    }
+} 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'shop.sqlite3',
-#         #'NAME':'shop',
-#         #'HOST':'127.0.0.1',
-#         #'USER':'admin',
-#         #'PASSWORD':'Allahisone',
+#         'ENGINE': 'django.db.backends.mysql',
+#         # 'NAME': BASE_DIR / 'shop.sqlite3',
+#         'NAME':'u456988861_bilal',
+#         'HOST':'tejaratistan.com',
+#         'USER':'u456988861_bilal',
+#         'PASSWORD':'Allahisone1',
 #     }
 # } 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': BASE_DIR / 'shop.sqlite3',
-        'NAME':'u456988861_tejaratistan',
-        'HOST':'tejaratistan.com',
-        'USER':'u456988861_root',
-        'PASSWORD':'Allahisone1',
-    }
-} 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         # 'NAME': BASE_DIR / 'shop.sqlite3',
+#         'NAME':'u456988861_tejaratistan',
+#         'HOST':'tejaratistan.com',
+#         'USER':'u456988861_root',
+#         'PASSWORD':'Allahisone1',
+#     }
+# } 
 
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
